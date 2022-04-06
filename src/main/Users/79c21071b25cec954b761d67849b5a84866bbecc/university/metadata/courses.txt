@@ -1,0 +1,2 @@
+course_id INTEGER(11) PRIMARY KEY
+course_name VARCHAR(255)

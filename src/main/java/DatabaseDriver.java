@@ -24,10 +24,10 @@ public class DatabaseDriver {
         String answer;
 
         Scanner sc=new Scanner(System.in);
-        Integer choice;
+        Integer choice=0;
         Boolean status=false;
 
-        lp: while(true){
+        while(choice!=3){
             System.out.println("Enter your option: ");
             System.out.println("1. User Registration");
             System.out.println("2. User Login");
@@ -82,9 +82,14 @@ public class DatabaseDriver {
 
                     if(status==true){
                         System.out.println("Login Successfull");
+                        LoginSuccess loginSuccess=new LoginSuccess();
+                        loginSuccess.mainMenu(username);
                     }else{
                         System.out.println("Login Unsuccesfull");
                     }
+
+                    break;
+                case 3:
 
                     break;
             }
