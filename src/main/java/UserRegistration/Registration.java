@@ -1,3 +1,5 @@
+package UserRegistration;
+
 import CustomExceptions.DuplicateUser;
 import org.apache.commons.codec.binary.Base64;
 
@@ -20,7 +22,7 @@ public class Registration {
     public boolean register(String username,String password,String answer1,String answer2,String answer3) throws IOException,
             DuplicateUser, NoSuchAlgorithmException {
 
-        File file=new File("C:\\Pavan\\Database\\Project\\src\\User_Profile");
+        File file=new File("./src/main/java/UserRegistration/User_Profile");
         BufferedReader br=new BufferedReader(new FileReader(file));
 
         String line;
@@ -57,7 +59,7 @@ public class Registration {
 
     public boolean createUser(String username,String password,String answer1,String answer2,String answer3)
             throws IOException, NoSuchAlgorithmException {
-        BufferedWriter bw=new BufferedWriter(new FileWriter("C:\\Pavan\\Database\\Project\\src\\User_Profile",true));
+        BufferedWriter bw=new BufferedWriter(new FileWriter("./src/main/java/UserRegistration/User_Profile",true));
 
         String line=username+"|"+password+"|"+answer1+"|"+answer2+"|"+answer3+"\n";
 
@@ -69,7 +71,7 @@ public class Registration {
 
     public boolean createDirectory(String username) {
 
-        String path= "C:\\Pavan\\Database\\Project\\src\\main\\Users\\"+username;
+        String path= "./src/main/java/UserRegistration/User_Profile"+username;
 
         File file=new File(path);
 

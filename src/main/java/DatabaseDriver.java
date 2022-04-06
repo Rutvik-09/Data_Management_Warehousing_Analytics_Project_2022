@@ -1,13 +1,11 @@
 import CustomExceptions.DuplicateUser;
+import UserRegistration.Login;
+import UserRegistration.Registration;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.util.Random;
@@ -29,8 +27,8 @@ public class DatabaseDriver {
 
         lp: while(true){
             System.out.println("Enter your option: ");
-            System.out.println("1. User Registration");
-            System.out.println("2. User Login");
+            System.out.println("1. User UserRegistration.Registration");
+            System.out.println("2. User UserRegistration.Login");
             System.out.println("3. Quit");
             choice=sc.nextInt();
             switch (choice) {
@@ -57,9 +55,9 @@ public class DatabaseDriver {
                     }
 
                     if(status==true){
-                        System.out.println("Registration Successfull");
+                        System.out.println("UserRegistration.Registration Successfull");
                     }else{
-                        System.out.println("Registration Unsuccesfull");
+                        System.out.println("UserRegistration.Registration Unsuccesfull");
                     }
                     break;
 
@@ -81,9 +79,9 @@ public class DatabaseDriver {
                     }
 
                     if(status==true){
-                        System.out.println("Login Successfull");
+                        System.out.println("UserRegistration.Login Successfull");
                     }else{
-                        System.out.println("Login Unsuccesfull");
+                        System.out.println("UserRegistration.Login Unsuccesfull");
                     }
 
                     break;

@@ -1,3 +1,5 @@
+package UserRegistration;
+
 import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -7,7 +9,7 @@ public class Login {
 
     public boolean login(String username, String password,String answer,Integer questionNumber) throws IOException, NoSuchAlgorithmException {
 
-        File file=new File("C:\\Pavan\\Database\\Project\\src\\User_Profile");
+        File file=new File("./src/main/java/UserRegistration/User_Profile");
         BufferedReader br=new BufferedReader(new FileReader(file));
 
         String line;
