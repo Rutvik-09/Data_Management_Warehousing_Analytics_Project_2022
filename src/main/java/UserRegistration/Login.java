@@ -1,3 +1,5 @@
+package UserRegistration;
+
 import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
