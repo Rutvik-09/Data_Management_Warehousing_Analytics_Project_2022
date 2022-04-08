@@ -1,5 +1,7 @@
 package UserRegistration;
 
+import Util.UtilModel;
+
 import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -8,8 +10,8 @@ import java.security.NoSuchAlgorithmException;
 public class Login {
 
     public boolean login(String username, String password,String answer,Integer questionNumber) throws IOException, NoSuchAlgorithmException {
-
-        File file=new File("./src/main/java/UserRegistration/User_Profile");
+        UtilModel globalConfig=new UtilModel();
+        File file=new File("./src/main/database/User_Profile");
         BufferedReader br=new BufferedReader(new FileReader(file));
 
         String line;
@@ -31,6 +33,7 @@ public class Login {
 
                 if(savedUsername.equals(encryptedUsername) && savedPassword.equals(encryptedPassword)
                 && savedAnswer.equals(answer)){
+                    globalConfig.setCurrentUserName(encryptedUsername);
                     loginStatus=true;
                     break;
                 }

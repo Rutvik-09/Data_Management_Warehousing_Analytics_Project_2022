@@ -22,66 +22,63 @@ public class DatabaseDriver {
         String answer;
 
         Scanner sc=new Scanner(System.in);
-        Integer choice;
-        Boolean status=false;
+        int choice;
+        boolean status=false;
 
-        lp: while(true){
+        while (true) {
             System.out.println("Enter your option: ");
-            System.out.println("1. User UserRegistration.Registration");
-            System.out.println("2. User UserRegistration.Login");
+            System.out.println("1. User User Registration");
+            System.out.println("2. User User Login");
             System.out.println("3. Quit");
-            choice=sc.nextInt();
+            choice = sc.nextInt();
             switch (choice) {
                 case 1:
                     System.out.println("Please enter a username.");
-                    username=sc.next();
+                    username = sc.next();
                     System.out.println("Please enter a password.");
-                    password=sc.next();
+                    password = sc.next();
                     System.out.println("Enter the current city that you live in.");
-                    String answer_1=sc.next();
+                    String answer_1 = sc.next();
                     System.out.println("Name of your best friend");
-                    String answer_2=sc.next();
+                    String answer_2 = sc.next();
                     System.out.println("Enter your mother's maiden name");
-                    String answer_3=sc.next();
-                    Registration rg=new Registration();
+                    String answer_3 = sc.next();
+                    Registration rg = new Registration();
                     try {
-                        status = rg.register(username,password,answer_1,answer_2,answer_3);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (DuplicateUser e) {
-                        e.printStackTrace();
-                    } catch (NoSuchAlgorithmException e) {
+                        status = rg.register(username, password, answer_1, answer_2, answer_3);
+                    } catch (IOException | NoSuchAlgorithmException | DuplicateUser e) {
                         e.printStackTrace();
                     }
 
-                    if(status==true){
-                        System.out.println("UserRegistration.Registration Successfull");
-                    }else{
-                        System.out.println("UserRegistration.Registration Unsuccesfull");
+                    if (status) {
+                        System.out.println("User Registration Successfull");
+                    } else {
+                        System.out.println("User Registration Unsuccesfull");
                     }
                     break;
 
                 case 2:
                     System.out.println("Please enter a username.");
-                    username=sc.next();
+                    username = sc.next();
                     System.out.println("Please enter a password.");
-                    password=sc.next();
+                    password = sc.next();
                     question_number = new Random().nextInt(question_numbers.length);
                     System.out.println(security_questions[question_number]);
-                    answer=sc.next();
-                    Login login=new Login();
+                    answer = sc.next();
+                    Login login = new Login();
                     try {
-                        status=login.login(username,password,answer,question_number);
+                        status = login.login(username, password, answer, question_number);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                    if(status==true){
-                        System.out.println("UserRegistration.Login Successfull");
-                    }else{
-                        System.out.println("UserRegistration.Login Unsuccesfull");
+                    if (status == true) {
+                        System.out.println("User Login Successfull");
+
+                    } else {
+                        System.out.println("User Login Unsuccesfull");
                     }
 
                     break;

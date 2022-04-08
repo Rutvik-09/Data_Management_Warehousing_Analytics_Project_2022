@@ -31,8 +31,8 @@ public class DatabaseDriver {
 
         lp: while(true){
             System.out.println("Enter your option: ");
-            System.out.println("1. User UserRegistration.Registration");
-            System.out.println("2. User UserRegistration.Login");
+            System.out.println("1. User Registration");
+            System.out.println("2. User Login");
             System.out.println("3. Quit");
             choice=sc.nextInt();
             switch (choice) {
@@ -59,9 +59,9 @@ public class DatabaseDriver {
                     }
 
                     if(status==true){
-                        System.out.println("UserRegistration.Registration Successfull");
+                        System.out.println("User Registration Successfull");
                     }else{
-                        System.out.println("UserRegistration.Registration Unsuccesfull");
+                        System.out.println("User Registration Unsuccesfull");
                     }
                     break;
 
@@ -83,9 +83,9 @@ public class DatabaseDriver {
                     }
 
                     if(status==true){
-                        System.out.println("UserRegistration.Login Successfull");
+                        System.out.println("User Login Successfull");
                     }else{
-                        System.out.println("UserRegistration.Login Unsuccesfull");
+                        System.out.println("User Login Unsuccesfull");
                     }
 
                     break;
