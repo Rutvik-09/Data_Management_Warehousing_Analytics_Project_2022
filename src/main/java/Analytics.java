@@ -11,7 +11,9 @@ public class Analytics {
 
     public static void updateanalytics() throws IOException {
         FileWriter writer = new FileWriter("analysisfiles/updateanalytics.txt",true);
+       try{
         Scanner reader = new Scanner(new File("dummydata.txt"));
+
         ArrayList<String> tablename = new ArrayList<>();
         ArrayList<Integer> tablenamecount = new ArrayList<>();
         while(reader.hasNext()){
@@ -45,11 +47,20 @@ public class Analytics {
             System.out.println("Total "+tablenamecount.get(i)+" Update operations are performed on "+tablename.get(i));
             writer.write("\n");
         }
-        writer.close();
+        writer.close();}
+       catch (FileNotFoundException e){
+
+           writer.write("No logs Found");
+           System.out.println("No logs Found");
+           writer.write("\n");
+           writer.close();
+       }
     }
 
     public static void queryanalytics(String username) throws IOException {
         FileWriter writer = new FileWriter("analysisfiles/queryanalytics.txt",true);
+
+        try{
         Scanner reader = new Scanner(new File("user/"+username+"/log.txt"));
         ArrayList<String> dbname = new ArrayList<>();
         ArrayList<Integer> queryct = new ArrayList<>();
@@ -80,12 +91,22 @@ public class Analytics {
             System.out.println("user "+username+" submitted "+queryct.get(i)+" queries for "+dbname.get(i)+" running on ");
             writer.write("\n");
         }
-        writer.close();
+        writer.close();}
+        catch (FileNotFoundException e)
+        {
+
+            writer.write("No logs Found");
+            System.out.println("No logs Found");
+            writer.write("\n");
+            writer.close();
+        }
+
     }
 
 
     public static void main(String[] args) throws IOException {
-       updateanalytics();
-       queryanalytics("rutvik");
+        updateanalytics();
+        queryanalytics("rutvik");
+
     }
 }
