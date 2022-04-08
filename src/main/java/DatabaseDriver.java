@@ -1,4 +1,5 @@
 import CustomExceptions.DuplicateUser;
+import LogManagement.GeneralLogWriter;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -11,9 +12,19 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class DatabaseDriver {
     public static void main(String[] args) throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException {
+        Runnable helloRunnable = new Runnable() {
+            public void run() {
+                GeneralLogWriter.addMetadata();
+            }
+        };
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(helloRunnable, 0, 60, TimeUnit.SECONDS);
         String username;
         String password;
         String[] security_questions=new String[]
