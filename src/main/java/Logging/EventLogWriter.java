@@ -1,4 +1,4 @@
-package LogManagement;
+package Logging;
 
 import Constants.QueryConstants;
 

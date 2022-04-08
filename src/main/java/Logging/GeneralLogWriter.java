@@ -1,6 +1,6 @@
-package LogManagement;
+package Logging;
 
-import CustomExceptions.DatabaseException;
+import CustomExceptions.DBException;
 import Services.MetadataServices;
 import Services.impl.MetadataServicesImpl;
 
@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GeneralLogWriter {
@@ -46,21 +45,21 @@ public class GeneralLogWriter {
 
     public static void addMetadata() {
         MetadataServices meta = new MetadataServicesImpl();
-        List<String> databases = new ArrayList<String>();
+        List<String> databases;
         String message = "{";
         try {
-            databases = meta.getDatabases();
+            databases = meta.getDBs();
             for (String database : databases) {
-                List<String> tables = new ArrayList<String>();
-                tables = meta.getTables(database);
+                List<String> tables;
+                tables = meta.getTablesInDBs(database);
                 message = "{\"DatabaseName\":\"" + database + "\",\"NoOfTables\":\"" + tables.size() + "\",\"Tables\":\"" + String.join(",", tables) + "\"},";
             }
             if (databases.size()>0) {
                 message = message.substring(0, message.length() - 1);
             }
-            message += "}";
+//            message += "}";
             addGeneralLog(message);
-        } catch (DatabaseException e) {
+        } catch (DBException e) {
             e.printStackTrace();
         }
     }
