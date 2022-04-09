@@ -105,7 +105,10 @@ public class DatabaseDriver {
         do {
             ReaderWriter.print("MENU");
             ReaderWriter.print("1.Write Queries");
-            ReaderWriter.print("2.Exit");
+            ReaderWriter.print("2.Export Dump");
+            ReaderWriter.print("3.Data Modeling");
+            ReaderWriter.print("4.Analytics");
+            ReaderWriter.print("5.Exit");
             try {
                 userInput = Integer.parseInt(ReaderWriter.input());
                 switch (userInput) {
@@ -114,6 +117,10 @@ public class DatabaseDriver {
                         new QueryServiceImpl().read();
                         break;
                     case 2:
+
+                    case 3:
+                    case 4:
+                    case 5:
                         break;
                     default:
                         System.out.println("Not a Valid Option");

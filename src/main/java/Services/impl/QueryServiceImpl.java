@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -222,13 +223,52 @@ public class QueryServiceImpl implements QueryService {
     }
     @Override
     public void read() throws IOException, DBException {
+
+        Scanner scanner =  new Scanner(System.in);
         String query;
         do {
-            query = ReaderWriter.input();
+
+            query = scanner.nextLine();
+            String tokens[] = query.split("\\s+");
+            List<String> queryList  = new ArrayList<>();
+            //queryList.add(query);
+            if (tokens[0].equalsIgnoreCase("start")){
+                Pattern pattern= Pattern.compile("(\\s*start\\s+transaction\\s*;)");
+                Matcher matcher= pattern.matcher(query);
+                if (matcher.find()){
+                    while (scanner.hasNextLine()){
+                        query = scanner.nextLine();
+
+                        System.out.println(query);
+                        queryList.add(query);
+                        if (query.equals("rollback;")){
+                            queryList =  new ArrayList<>();
+                            break;
+                        }
+                        if (query.contains("commit;")){
+                            break;
+                        }
+                    }
+                    for (String eachQuery:queryList){
+                        if (eachQuery.equals("commit;")) {
+                            break;
+                        }
+                        if(eachQuery.equals("")){
+                            break;
+                        }
+                        parse(eachQuery);
+                    }
+
+                }
+
+                else {
+                    System.out.println("Invalid syntax for transaction\n");
+                }
+
+            }
             if (!query.equals("exit;")) {
                 try {
                     parse(query);
-                    System.out.println("Query Executed Successfully");
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -236,3 +276,4 @@ public class QueryServiceImpl implements QueryService {
         } while(!query.equals("exit;"));
     }
 }
+

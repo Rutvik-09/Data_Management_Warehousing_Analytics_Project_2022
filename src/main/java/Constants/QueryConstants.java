@@ -4,6 +4,8 @@ public class QueryConstants {
     public static String CURRENT_DB="";
     public static String CURRENT_USER="";
     public static String CURRENT_VM = "";
+    public static String CURRENT_TABLE = "";
+
 
     public static String DB_PATH="DBStructure/";
     public static String DB_PATH_PERMANENT = "DBStructure/";

@@ -20,7 +20,7 @@ public class Registration {
     public boolean register(String username,String password,String answer1,String answer2,String answer3) throws IOException,
             DuplicateUser, NoSuchAlgorithmException {
 
-        File file=new File("C:\\Pavan\\Database\\Project\\src\\User_Profile");
+        File file=new File("C:\\Users\\AVuser\\Downloads\\csci-5408-dmwa-group-18 (1)\\csci-5408-dmwa-group-18\\src\\User_Profile");
         BufferedReader br=new BufferedReader(new FileReader(file));
 
         String line;
