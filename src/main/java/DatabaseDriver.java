@@ -151,7 +151,7 @@ public class DatabaseDriver {
         if (!tableDetailsTable.isFile()) {
             tableDetailsTable.createNewFile();
             FileWriter fileWriter = new FileWriter(tableDetailsTable);
-            fileWriter.write("Database" + DELIMITER + "TableName" + DELIMITER + "isLocked" + ENDOFLINE);
+            fileWriter.write("Database" + DELIMITER + "TableName" + ENDOFLINE);
             fileWriter.close();
         }
 
