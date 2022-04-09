@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="csci-5408-dmwa-group-18" />
         <module name="DatabaseProject" />
+        <module name="csci-5408-dmwa-group-18" />
       </profile>
     </annotationProcessing>
   </component>

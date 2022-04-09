@@ -78,7 +78,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
         columnNameWriter.close();
         //Insert Meta Table
         Table table = new Table();
-        table.setRow(new String[]{QueryConstants.CURRENT_DB,tableName,"0"});
+        table.setRow(new String[]{QueryConstants.CURRENT_DB,tableName});
         metadataServices.insertTablesDataInMetaData(table);
 
         //Insert Meta Columns
