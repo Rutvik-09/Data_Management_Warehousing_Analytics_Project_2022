@@ -2,7 +2,10 @@ package Services.impl;
 
 import Constants.Datatype;
 import Constants.Operation;
+import Constants.QueryConstants;
 import CustomExceptions.DBException;
+import Logging.EventLogWriter;
+import Logging.QueryLogWriter;
 import Services.DatabaseServices;
 import Services.QueryService;
 import Helper.ReaderWriter;
@@ -32,6 +35,7 @@ public class QueryServiceImpl implements QueryService {
                     String[] words = query.split(" ");
                     if(words[1].equalsIgnoreCase("database")) {
                         db.createDatabase(words[2]);
+                        EventLogWriter.addEventLog("Database : "+ words[2] +" Created");
                     }
                     else if(words[1].equalsIgnoreCase("table")){
                         String outerCreateQuery = "create\\stable\\s(\\w+)\\s";
@@ -64,12 +68,13 @@ public class QueryServiceImpl implements QueryService {
                                 System.out.println("ERROR: "+ DBResponse.getMessage());
                             }
                             else {
-                                //==== Valid Query
+                                EventLogWriter.addEventLog("Table : "+ tableName +" Created in Database "+ QueryConstants.CURRENT_DB);
+                                QueryLogWriter.addQueryLog("Success - Valid Query",query);
                             }
 
                         }
                         else{
-                            //==== InValid Query
+                            QueryLogWriter.addQueryLog("Failed - Invalid Query",query);
                             System.out.println("not a valid query");
                         }
                     }
@@ -79,6 +84,8 @@ public class QueryServiceImpl implements QueryService {
                     String[] words1 = query.split(" ");
                     String dbName = words1[1];
                     db.useDatabase(dbName);
+                    QueryConstants.CURRENT_DB = dbName;
+                    QueryLogWriter.addQueryLog("Success - Valid Query",query);
                     break;
                 case "insert":
                     Pattern pattern2 = Pattern.compile("insert into\\s(.*?)\\s(.*?)\\svalues\\s(.*?);", Pattern.DOTALL);
@@ -106,11 +113,11 @@ public class QueryServiceImpl implements QueryService {
                             System.out.println("ERROR: "+ DBResponse.getMessage());
                         }
                         else {
-                            //==== Valid Query
+                            QueryLogWriter.addQueryLog("Success - Valid Query",query);
                         }
                     }
                     else {
-                        //==== Invalid Query
+                        QueryLogWriter.addQueryLog("Failed - Invalid Query",query);
                         System.out.println("Not a valid Query");
                     }
                     break;
@@ -136,11 +143,11 @@ public class QueryServiceImpl implements QueryService {
                             System.out.println("ERROR: "+ DBResponse.getMessage());
                         }
                         else {
-                            //==== Valid Query
+                            QueryLogWriter.addQueryLog("Success - Valid Query",query);
                         }
                     }
                     else {
-                    	//=== Invalid Query
+                        QueryLogWriter.addQueryLog("Failed - Invalid Query",query);
                         System.out.println("Not a valid Query");
                     }
                     break;
@@ -165,11 +172,11 @@ public class QueryServiceImpl implements QueryService {
                             System.out.println("ERROR: "+ DBResponse.getMessage());
                         }
                         else {
-                            //=== Valid Query
+                            QueryLogWriter.addQueryLog("Success - Valid Query",query);
                         }
                     }
                     else {
-                        //=== Invalid Query
+                        QueryLogWriter.addQueryLog("Failed - invalid Query",query);
                         System.out.println("Not a valid Query");
                     }
                     break;
@@ -189,11 +196,11 @@ public class QueryServiceImpl implements QueryService {
                             System.out.println("ERROR: "+ DBResponse.getMessage());
                         }
                         else {
-                            //=== Valid Query
+                            QueryLogWriter.addQueryLog("Success - Valid Query",query);
                         }
                     }
                     else {
-                        //=== Invalid Query
+                        QueryLogWriter.addQueryLog("Failed - Invalid Query",query);
                     }
                     break;
                 case "drop":
@@ -203,9 +210,11 @@ public class QueryServiceImpl implements QueryService {
                     if (match4) {
                         String tableName = matcher6.group(2);
                         db.dropTable(tableName);
+                        EventLogWriter.addEventLog("Table : "+ tableName +" Dropped from Database "+ QueryConstants.CURRENT_DB);
+                        QueryLogWriter.addQueryLog("Success - Valid Query",query);
                     }
                     else {
-                        //=== Invalid Query
+                        QueryLogWriter.addQueryLog("Failed - invalid Query",query);
                         System.out.println("Not a valid Query");
                     }
                     break;

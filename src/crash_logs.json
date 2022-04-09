@@ -1,0 +1,4 @@
+{"TimeStamp":"2022-04-09 19:21:38.897","UserName":"Jayashree1","Message":"dropTable : No table exists with name : student"}
+{"TimeStamp":"2022-04-09 19:21:49.733","UserName":"Jayashree1","Message":"useDatabase : Database not exists with name : database"}
+{"TimeStamp":"2022-04-09 18:25:54.87","UserName":"Jayashree","Message":"dropTable : No table exists with name : ss"}
+{"TimeStamp":"2022-04-09 18:26:06.794","UserName":"Jayashree","Message":"dropTable : Error deleted table : ss"}

@@ -1,53 +1,47 @@
 import CustomExceptions.DuplicateUser;
-import org.apache.commons.codec.binary.Base64;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
+import Logging.EventLogWriter;
 
 import java.io.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Registration {
 
-    public boolean register(String username,String password,String answer1,String answer2,String answer3) throws IOException,
+    public boolean register(String username, String password, String answer1, String answer2, String answer3) throws IOException,
             DuplicateUser, NoSuchAlgorithmException {
 
-        File file=new File("C:\\Users\\AVuser\\Downloads\\csci-5408-dmwa-group-18 (1)\\csci-5408-dmwa-group-18\\src\\User_Profile");
+        File file=new File("src/User_Profile");
         BufferedReader br=new BufferedReader(new FileReader(file));
 
         String line;
-        boolean uniqueUsername=true;
+        boolean uniqueUsername = true;
         String savedUsername;
 
-        String encryptedUsername= encrypt(username);
-        String encryptedPassword= encrypt(password);
+        String encryptedUsername = encrypt(username);
+        String encryptedPassword = encrypt(password);
 
-        while((line=br.readLine())!=null){
-            String[] credentials=line.split("\\|");
+        while ((line = br.readLine()) != null) {
+            String[] credentials = line.split("\\|");
 
-            if(credentials.length>0){
-                savedUsername=credentials[0];
-                if(savedUsername.equals(encryptedUsername)){
-                    uniqueUsername=false;
+            if (credentials.length > 0) {
+                savedUsername = credentials[0];
+                if (savedUsername.equals(encryptedUsername)) {
+                    uniqueUsername = false;
                     break;
                 }
             }
         }
 
-        if(!uniqueUsername){
-            throw new DuplicateUser("Duplicate user with username: " + username );
-        }else{
-            boolean userCreationStatus=createUser(encryptedUsername,encryptedPassword,answer1,answer2,answer3);
-
-            boolean directoryCreationStatus=createDirectory(encryptedUsername);
+        if (!uniqueUsername) {
+            EventLogWriter.addEventLog("User registration failed - Error : Duplicate user with username : " + username + " already exists.");
+            throw new DuplicateUser("Duplicate user with username: " + username);
+        } else {
+            boolean userCreationStatus = createUser(encryptedUsername, encryptedPassword, answer1, answer2, answer3);
+            if (userCreationStatus) {
+                EventLogWriter.addEventLog("User registration success for username : " + username + ".");
+            }
+            boolean directoryCreationStatus = createDirectory(encryptedUsername);
         }
 
         br.close();
@@ -55,11 +49,11 @@ public class Registration {
         return true;
     }
 
-    public boolean createUser(String username,String password,String answer1,String answer2,String answer3)
+    public boolean createUser(String username, String password, String answer1, String answer2, String answer3)
             throws IOException, NoSuchAlgorithmException {
-        BufferedWriter bw=new BufferedWriter(new FileWriter("C:\\Pavan\\Database\\Project\\src\\User_Profile",true));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("src/User_Profile", true));
 
-        String line=username+"|"+password+"|"+answer1+"|"+answer2+"|"+answer3+"\n";
+        String line = username + "|" + password + "|" + answer1 + "|" + answer2 + "|" + answer3 + "\n";
 
         bw.write(line);
         bw.close();
@@ -69,19 +63,19 @@ public class Registration {
 
     public boolean createDirectory(String username) {
 
-        String path= "C:\\Pavan\\Database\\Project\\src\\main\\Users\\"+username;
+        String path = "C:\\Pavan\\Database\\Project\\src\\main\\Users\\" + username;
 
-        File file=new File(path);
+        File file = new File(path);
 
-        boolean status=false;
+        boolean status = false;
 
-        status=file.mkdir();
+        status = file.mkdir();
 
         return status;
     }
 
     public String encrypt(String field) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        String encryptedMessage="";
+        String encryptedMessage = "";
 
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
         digest.reset();

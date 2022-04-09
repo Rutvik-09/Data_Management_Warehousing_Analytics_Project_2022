@@ -1,0 +1,20 @@
+{"TimeStamp":"2022-04-09 19:16:12.596","UserName":"","EventMessage":"User registration success for username : Jayashree1."}
+{"TimeStamp":"2022-04-09 19:16:33.23","UserName":"Jayashree1","EventMessage":"User Login Successfully"}
+{"TimeStamp":"2022-04-09 19:17:01.932","UserName":"Jayashree1","EventMessage":"Database : school1 Created"}
+{"TimeStamp":"2022-04-09 19:17:46.948","UserName":"Jayashree1","EventMessage":"Table : users Created in Database school1"}
+{"TimeStamp":"2022-04-09 19:22:03.23","UserName":"Jayashree1","EventMessage":"Database : student11 Created"}
+{"TimeStamp":"2022-04-09 19:22:24.215","UserName":"Jayashree1","EventMessage":"Table : users Created in Database student11"}
+{"TimeStamp":"2022-04-09 18:13:25.217","UserName":"","EventMessage":"User registration failed - Error : Duplicate user with username : Jayashree1 already exists."}
+{"TimeStamp":"2022-04-09 18:13:58.7","UserName":"","EventMessage":"User registration success for username : Jayashree6."}
+{"TimeStamp":"2022-04-09 18:14:16.25","UserName":"Jayashree6","EventMessage":"User Login Successfully"}
+{"TimeStamp":"2022-04-09 18:15:05.385","UserName":"Jayashree6","EventMessage":"Database : db11 Created"}
+{"TimeStamp":"2022-04-09 18:18:53.576","UserName":"","EventMessage":"User registration success for username : Jayashree66."}
+{"TimeStamp":"2022-04-09 18:21:33.598","UserName":"Jayashree","EventMessage":"User Login Successfully"}
+{"TimeStamp":"2022-04-09 18:21:41.352","UserName":"Jayashree","EventMessage":"Database : db1 Created"}
+{"TimeStamp":"2022-04-09 18:22:05.368","UserName":"Jayashree","EventMessage":"Table : table1 Created in Database db1"}
+{"TimeStamp":"2022-04-09 18:26:06.806","UserName":"Jayashree","EventMessage":"Table : ss Dropped from Database db1"}
+{"TimeStamp":"2022-04-09 18:31:57.357","UserName":"","EventMessage":"User registration success for username : Jayashree."}
+{"TimeStamp":"2022-04-09 18:33:49.934","UserName":"","EventMessage":"User registration success for username : Jayashree."}
+{"TimeStamp":"2022-04-09 18:34:02.105","UserName":"Jayashree","EventMessage":"User Login Successfully"}
+{"TimeStamp":"2022-04-09 18:34:30.387","UserName":"Jayashree","EventMessage":"Database : dbname1 Created"}
+{"TimeStamp":"2022-04-09 18:34:59.779","UserName":"Jayashree","EventMessage":"Table : users Created in Database dbname1"}

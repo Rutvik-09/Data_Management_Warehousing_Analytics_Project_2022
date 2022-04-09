@@ -3,6 +3,7 @@ package Services.impl;
 import Constants.Operation;
 import Constants.QueryConstants;
 import CustomExceptions.DBException;
+import Logging.CrashLogWriter;
 import Services.DatabaseServices;
 import Services.MetadataServices;
 import Helper.ReaderWriter;
@@ -31,6 +32,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
         File file = new File(dbPath);
         if(file.exists()) {
             ReaderWriter.print("DB already exist");
+            CrashLogWriter.addCrashLog("createDatabase : Database already exists with name : "+dbName);
             return new DBResponse(false,"DB already exist");
         }
         boolean  isCreated = file.mkdir();
@@ -48,6 +50,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
             return new DBResponse(true,dbName + "DB selected");
         } else {
             ReaderWriter.print("DB not exist");
+            CrashLogWriter.addCrashLog("useDatabase : Database not exists with name : "+dbName);
             return new DBResponse(false,"DB not exist");
         }
     }
@@ -56,6 +59,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
     public DBResponse createTable(String tableName, List<Column> columns) throws IOException {
         if(QueryConstants.CURRENT_DB.equals("")) {
             ReaderWriter.print("Please select a database");
+            CrashLogWriter.addCrashLog("createTable : No database selected");
             return new DBResponse(false,"Please select a database");
         }
         String tablePath = QueryConstants.DB_PATH +QueryConstants.CURRENT_DB+"/"+tableName;
@@ -67,6 +71,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
         try {
             file.createNewFile();
         } catch (IOException e) {
+            CrashLogWriter.addCrashLog("createTable : Error Creating Table with name : "+tableName);
             e.printStackTrace();
         }
         FileWriter columnNameWriter = new FileWriter(tablePath, true);
@@ -99,6 +104,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
     public DBResponse insertTable(String tableName, Table tableDate) throws IOException, DBException {
         if(QueryConstants.CURRENT_DB.equals("")) {
             ReaderWriter.print("Please select a database");
+            CrashLogWriter.addCrashLog("insertTable : No database selected");
             return new DBResponse(false,"Please select a database");
         }
 
@@ -107,6 +113,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
         File file = new File(tablePath);
         if(!file.exists()) {
             ReaderWriter.print("Table doesn't exist");
+            CrashLogWriter.addCrashLog("insertTable : Table not exists with name : "+tableName);
             return new DBResponse(false,"Table doesn't exist");
         }
         FileWriter columnNameWriter = new FileWriter(tablePath, true);
@@ -130,6 +137,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
     public DBResponse updateTable(String tableName, String column, String value, WhereCondition whereCondition) throws IOException, DBException {
         if (QueryConstants.CURRENT_DB.equals("")) {
             ReaderWriter.print("Please select a database");
+            CrashLogWriter.addCrashLog("updateTable : No database selected");
             return new DBResponse(false, "Please select a database");
         }
 
@@ -139,6 +147,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
         File file = new File(tablePath);
         if (!file.exists()) {
             ReaderWriter.print("Table doesn't exist");
+            CrashLogWriter.addCrashLog("updateTable : Table not exists with name :"+tableName);
             return new DBResponse(false, "Table doesn't exist");
         }
 
@@ -252,6 +261,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
     public DBResponse deleteTable(String tableName, WhereCondition whereCondition) throws IOException, DBException {
         if(QueryConstants.CURRENT_DB.equals("")) {
             ReaderWriter.print("Please select a database");
+            CrashLogWriter.addCrashLog("deleteTable : No database selected");
             return new DBResponse(false,"Please select a database");
         }
 
@@ -261,6 +271,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
         File file = new File(tablePath);
         if(!file.exists()) {
             ReaderWriter.print("Table doesn't exist");
+            CrashLogWriter.addCrashLog("deleteTable : No table exists with name : "+tableName);
             return new DBResponse(false,"Table doesn't exist");
         }
 
@@ -294,6 +305,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
     public DBResponse dropTable(String tableName) {
         if(QueryConstants.CURRENT_DB.equals("")) {
             ReaderWriter.print("DB NOT SELECTED");
+            CrashLogWriter.addCrashLog("dropTable : No database selected");
             return new DBResponse(false,"Database not selected");
         }
         boolean fileExist = new File(QueryConstants.DB_PATH +QueryConstants.CURRENT_DB+"/"+tableName).exists();
@@ -307,6 +319,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
                 return new DBResponse(true, tableName + " has been deleted successfully");
             }
         }
+        CrashLogWriter.addCrashLog("dropTable : Error deleted table : "+tableName);
         return new DBResponse(false, tableName + " Error deleting");
     }
 
@@ -314,6 +327,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
     public DBResponse selectTable(String tableName, String columns, WhereCondition whereCondition) throws IOException, DBException {
         if(QueryConstants.CURRENT_DB.equals("")) {
             ReaderWriter.print("Please select a database");
+            CrashLogWriter.addCrashLog("dropTable : No database selected");
             return new DBResponse(false,"Please select a database");
         }
         int greaterThanCounterColumn = 0;
@@ -326,6 +340,7 @@ public class DatabaseServicesImpl implements DatabaseServices {
         File file = new File(tablePath);
         if(!file.exists()) {
             ReaderWriter.print("Table doesn't exist");
+            CrashLogWriter.addCrashLog("dropTable : No table exists with name : "+tableName);
             return new DBResponse(false,"Table doesn't exist");
         }
 

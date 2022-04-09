@@ -7,13 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
 
-public class EventLogWriter {
+public class CrashLogWriter {
+    private static String CRASH_LOG_FILE = "src/crash_logs.json";
 
-    private static String loggedInUser = QueryConstants.CURRENT_USER;
-    private static String EVENT_LOG_FILE = "src/event_logs.json";
-
-    public static void addEventLog(String message) {
-        File file = new File(EVENT_LOG_FILE);
+    public static void addCrashLog(String message) {
+        File file = new File(CRASH_LOG_FILE);
 
         if (!file.exists()) {
             try {
@@ -34,7 +32,7 @@ public class EventLogWriter {
         try (FileWriter writer = new FileWriter(file, true)) {
             String timestamp = new Timestamp(System.currentTimeMillis()).toString();
             String userName = QueryConstants.CURRENT_USER;
-            String jsonRecord = "{\"TimeStamp\":\"" + timestamp + "\",\"UserName\":\"" + userName + "\",\"EventMessage\":\"" + message +  "\"}";
+            String jsonRecord = "{\"TimeStamp\":\"" + timestamp + "\",\"UserName\":\"" + userName + "\",\"Message\":\"" + message +  "\"}";
             writer.append(jsonRecord);
             writer.append("\n");
         } catch (final IOException e) {
