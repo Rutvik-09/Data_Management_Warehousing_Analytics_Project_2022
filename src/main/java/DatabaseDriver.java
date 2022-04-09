@@ -1,27 +1,16 @@
-import CustomExceptions.DBException;
-import CustomExceptions.DuplicateUser;
-import Logging.GeneralLogWriter;
-import Services.impl.QueryServiceImpl;
-import Helper.ReaderWriter;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
+import customexceptions.DuplicateUser;
+import loginregistration.Login;
+import loginregistration.LoginSuccess;
+import loginregistration.Register;
+import javax.crypto.NoSuchPaddingException;
+import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
-import static Constants.QueryConstants.*;
 
 public class DatabaseDriver {
-    public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
-        initialSetup();
-        Runnable generalLoggingRunnable = GeneralLogWriter::addMetadata;
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-//        executor.scheduleAtFixedRate(generalLoggingRunnable, 0, 60, TimeUnit.SECONDS);
+    public static void main(String[] args) throws NoSuchPaddingException, NoSuchAlgorithmException, IOException {
         String username;
         String password;
         String[] security_questions=new String[]
@@ -32,10 +21,10 @@ public class DatabaseDriver {
         String answer;
 
         Scanner sc=new Scanner(System.in);
-        Integer choice;
+        Integer choice=0;
         Boolean status=false;
 
-        lp: while(true){
+        while(choice!=3){
             System.out.println("Enter your option: ");
             System.out.println("1. User Registration");
             System.out.println("2. User Login");
@@ -53,7 +42,7 @@ public class DatabaseDriver {
                     String answer_2=sc.next();
                     System.out.println("Enter your mother's maiden name");
                     String answer_3=sc.next();
-                    Registration rg=new Registration();
+                    Register rg=new Register();
                     try {
                         status = rg.register(username,password,answer_1,answer_2,answer_3);
                     } catch (IOException e) {
@@ -90,79 +79,17 @@ public class DatabaseDriver {
 
                     if(status==true){
                         System.out.println("Login Successfull");
-                        menu();
+                        LoginSuccess loginSuccess=new LoginSuccess();
+                        loginSuccess.mainMenu(username);
                     }else{
                         System.out.println("Login Unsuccesfull");
                     }
 
                     break;
+                case 3:
+
+                    break;
             }
         }
     }
-
-    public static void menu() throws IOException, DBException {
-        int userInput = 0;
-        do {
-            ReaderWriter.print("MENU");
-            ReaderWriter.print("1.Write Queries");
-            ReaderWriter.print("2.Export Dump");
-            ReaderWriter.print("3.Data Modeling");
-            ReaderWriter.print("4.Analytics");
-            ReaderWriter.print("5.Exit");
-            try {
-                userInput = Integer.parseInt(ReaderWriter.input());
-                switch (userInput) {
-                    case 1:
-                        ReaderWriter.print("Enter Query");
-                        new QueryServiceImpl().read();
-                        break;
-                    case 2:
-
-                    case 3:
-                    case 4:
-                    case 5:
-                        break;
-                    default:
-                        System.out.println("Not a Valid Option");
-                        break;
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }while (userInput!=2);
-        System.out.println("Exit");
-    }
-
-    public static boolean initialSetup() throws IOException {
-        File mainDir = new File(DB_PATH_PERMANENT);
-        if (!mainDir.isDirectory()){
-            mainDir.mkdir();
-        }
-        //Create Meta folder if not exist
-        File metaDir = new File(DB_PATH_PERMANENT + META_DATA_DIRECTORY);
-        if (!metaDir.isDirectory()) {
-            metaDir.mkdir();
-        }
-
-        //Create Column details if not exist
-        File columnDetailsTable = new File(metaDir.getAbsolutePath() + SLASH + COLUMN_META);
-        if (!columnDetailsTable.isFile()) {
-            columnDetailsTable.createNewFile();
-            FileWriter fileWriter = new FileWriter(columnDetailsTable);
-            fileWriter.write("TableName" + DELIMITER + "ColumnName" + DELIMITER + "Datatype" + DELIMITER + "Constraints" + ENDOFLINE);
-            fileWriter.close();
-        }
-
-        //Create Table details if not exist
-        File tableDetailsTable = new File(metaDir.getAbsolutePath() + SLASH + TABLE_META);
-        if (!tableDetailsTable.isFile()) {
-            tableDetailsTable.createNewFile();
-            FileWriter fileWriter = new FileWriter(tableDetailsTable);
-            fileWriter.write("Database" + DELIMITER + "TableName" + ENDOFLINE);
-            fileWriter.close();
-        }
-
-        return true;
-    }
-
 }
