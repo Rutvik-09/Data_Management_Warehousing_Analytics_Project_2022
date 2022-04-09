@@ -1,30 +1,27 @@
+import CustomExceptions.DBException;
 import CustomExceptions.DuplicateUser;
-import LogManagement.GeneralLogWriter;
+import Logging.GeneralLogWriter;
+import Services.impl.QueryServiceImpl;
+import Helper.ReaderWriter;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+
+import static Constants.QueryConstants.*;
 
 public class DatabaseDriver {
-    public static void main(String[] args) throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException {
-        Runnable helloRunnable = new Runnable() {
-            public void run() {
-                GeneralLogWriter.addMetadata();
-            }
-        };
+    public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
+        initialSetup();
+        Runnable generalLoggingRunnable = GeneralLogWriter::addMetadata;
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(helloRunnable, 0, 60, TimeUnit.SECONDS);
+//        executor.scheduleAtFixedRate(generalLoggingRunnable, 0, 60, TimeUnit.SECONDS);
         String username;
         String password;
         String[] security_questions=new String[]
@@ -93,6 +90,7 @@ public class DatabaseDriver {
 
                     if(status==true){
                         System.out.println("Login Successfull");
+                        menu();
                     }else{
                         System.out.println("Login Unsuccesfull");
                     }
@@ -101,4 +99,63 @@ public class DatabaseDriver {
             }
         }
     }
+
+    public static void menu() throws IOException, DBException {
+        int userInput = 0;
+        do {
+            ReaderWriter.print("MENU");
+            ReaderWriter.print("1.Write Queries");
+            ReaderWriter.print("2.Exit");
+            try {
+                userInput = Integer.parseInt(ReaderWriter.input());
+                switch (userInput) {
+                    case 1:
+                        ReaderWriter.print("Enter Query");
+                        new QueryServiceImpl().read();
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        System.out.println("Not a Valid Option");
+                        break;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }while (userInput!=2);
+        System.out.println("Exit");
+    }
+
+    public static boolean initialSetup() throws IOException {
+        File mainDir = new File(DB_PATH_PERMANENT);
+        if (!mainDir.isDirectory()){
+            mainDir.mkdir();
+        }
+        //Create Meta folder if not exist
+        File metaDir = new File(DB_PATH_PERMANENT + META_DATA_DIRECTORY);
+        if (!metaDir.isDirectory()) {
+            metaDir.mkdir();
+        }
+
+        //Create Column details if not exist
+        File columnDetailsTable = new File(metaDir.getAbsolutePath() + SLASH + COLUMN_META);
+        if (!columnDetailsTable.isFile()) {
+            columnDetailsTable.createNewFile();
+            FileWriter fileWriter = new FileWriter(columnDetailsTable);
+            fileWriter.write("TableName" + DELIMITER + "ColumnName" + DELIMITER + "Datatype" + DELIMITER + "Constraints" + ENDOFLINE);
+            fileWriter.close();
+        }
+
+        //Create Table details if not exist
+        File tableDetailsTable = new File(metaDir.getAbsolutePath() + SLASH + TABLE_META);
+        if (!tableDetailsTable.isFile()) {
+            tableDetailsTable.createNewFile();
+            FileWriter fileWriter = new FileWriter(tableDetailsTable);
+            fileWriter.write("Database" + DELIMITER + "TableName" + DELIMITER + "isLocked" + ENDOFLINE);
+            fileWriter.close();
+        }
+
+        return true;
+    }
+
 }
