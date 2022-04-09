@@ -1,4 +1,0 @@
-TableName|ColumnName|Datatype|Constraints
-users|id|INT| primary key
-users|name|VARCHAR|
-users|rollno|INT|

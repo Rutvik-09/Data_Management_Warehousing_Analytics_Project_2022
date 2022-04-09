@@ -1,0 +1,27 @@
+{"Status":"Success - Valid Query","Query":"use school1","TimeStamp":"2022-04-09 19:17:13.399","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"create table users (id int primary key, name varchar, rollno int)","TimeStamp":"2022-04-09 19:17:46.948","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"insert into users (id, name, rollno) values (1, "jayashree", 1001);","TimeStamp":"2022-04-09 19:17:59.134","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"select * from users;","TimeStamp":"2022-04-09 19:18:12.257","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"select * from users where rollno > 1001;","TimeStamp":"2022-04-09 19:18:19.984","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"insert into users (id, name, rollno) values (2, "jayashree2", 1002);","TimeStamp":"2022-04-09 19:18:30.285","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"insert into users (id, name, rollno) values (3, "jayashree3", 1003);","TimeStamp":"2022-04-09 19:18:42.274","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"select * from users where rollno > 1001;","TimeStamp":"2022-04-09 19:18:53.794","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"update users set name='jayashree5' where rollno = 1001;","TimeStamp":"2022-04-09 19:19:02.753","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"update users set name='jayashree5' where rollno = 1006;","TimeStamp":"2022-04-09 19:19:08.751","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"select * from users;","TimeStamp":"2022-04-09 19:19:27.755","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"delete from users where name = 'jayashree2';","TimeStamp":"2022-04-09 19:20:56.359","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"use database","TimeStamp":"2022-04-09 19:21:49.733","UserName":"Jayashree1","DBName":"database","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"use student11","TimeStamp":"2022-04-09 19:22:09.953","UserName":"Jayashree1","DBName":"student11","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"create table users (id int primary key, name varchar, rollno int)","TimeStamp":"2022-04-09 19:22:24.216","UserName":"Jayashree1","DBName":"student11","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"use school1","TimeStamp":"2022-04-09 19:23:28.054","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Failed - Invalid Query","Query":"insert into users (1,22,33);","TimeStamp":"2022-04-09 19:23:59.2","UserName":"Jayashree1","DBName":"school1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"use db11","TimeStamp":"2022-04-09 18:15:20.062","UserName":"Jayashree6","DBName":"db11","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"use db1","TimeStamp":"2022-04-09 18:21:45.465","UserName":"Jayashree","DBName":"db1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"create table table1 (col1 int primary key, col2 int)","TimeStamp":"2022-04-09 18:22:05.37","UserName":"Jayashree","DBName":"db1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"insert into table1 (col1, col2) values (1,2);","TimeStamp":"2022-04-09 18:22:22.504","UserName":"Jayashree","DBName":"db1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"drop table ss;","TimeStamp":"2022-04-09 18:26:06.817","UserName":"Jayashree","DBName":"db1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"use dbname1","TimeStamp":"2022-04-09 18:34:35.197","UserName":"Jayashree","DBName":"dbname1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"create table users (id int primary key, name varchar, rollno int)","TimeStamp":"2022-04-09 18:34:59.782","UserName":"Jayashree","DBName":"dbname1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"select * from users;","TimeStamp":"2022-04-09 18:35:09.779","UserName":"Jayashree","DBName":"dbname1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"insert into users (id, name, rollno) values (1, "jayashree", 1001);","TimeStamp":"2022-04-09 18:35:19.7","UserName":"Jayashree","DBName":"dbname1","VM":"VM1"}
+{"Status":"Success - Valid Query","Query":"select * from users;","TimeStamp":"2022-04-09 18:35:29.428","UserName":"Jayashree","DBName":"dbname1","VM":"VM1"}

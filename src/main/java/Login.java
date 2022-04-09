@@ -1,3 +1,6 @@
+import Constants.QueryConstants;
+import Logging.EventLogWriter;
+
 import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -7,7 +10,7 @@ public class Login {
 
     public boolean login(String username, String password,String answer,Integer questionNumber) throws IOException, NoSuchAlgorithmException {
 
-        File file=new File("C:\\Users\\AVuser\\Downloads\\csci-5408-dmwa-group-18 (1)\\csci-5408-dmwa-group-18\\src\\User_Profile");
+        File file=new File("src/User_Profile");
         BufferedReader br=new BufferedReader(new FileReader(file));
 
         String line;
@@ -29,7 +32,9 @@ public class Login {
 
                 if(savedUsername.equals(encryptedUsername) && savedPassword.equals(encryptedPassword)
                 && savedAnswer.equals(answer)){
+                    QueryConstants.CURRENT_USER = username;
                     loginStatus=true;
+                    EventLogWriter.addEventLog("User Login Successfully");
                     break;
                 }
             }

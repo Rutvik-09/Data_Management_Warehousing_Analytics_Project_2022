@@ -1,3 +1,4 @@
+import Constants.QueryConstants;
 import CustomExceptions.DBException;
 import CustomExceptions.DuplicateUser;
 import Logging.GeneralLogWriter;
@@ -13,15 +14,17 @@ import java.util.Scanner;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static Constants.QueryConstants.*;
 
 public class DatabaseDriver {
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
         initialSetup();
+        CURRENT_VM = "VM1"; // need to update accordingly
         Runnable generalLoggingRunnable = GeneralLogWriter::addMetadata;
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-//        executor.scheduleAtFixedRate(generalLoggingRunnable, 0, 60, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(generalLoggingRunnable, 0, 60, TimeUnit.SECONDS);
         String username;
         String password;
         String[] security_questions=new String[]
