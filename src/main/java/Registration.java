@@ -1,5 +1,5 @@
 import CustomExceptions.DuplicateUser;
-import Logging.EventLogWriter;
+import Logging.LogEventHandler;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -34,12 +34,12 @@ public class Registration {
         }
 
         if (!uniqueUsername) {
-            EventLogWriter.addEventLog("User registration failed - Error : Duplicate user with username : " + username + " already exists.");
+            LogEventHandler.insertLogEvent("User registration failed - Error : Duplicate user with username : " + username + " already exists.");
             throw new DuplicateUser("Duplicate user with username: " + username);
         } else {
             boolean userCreationStatus = createUser(encryptedUsername, encryptedPassword, answer1, answer2, answer3);
             if (userCreationStatus) {
-                EventLogWriter.addEventLog("User registration success for username : " + username + ".");
+                LogEventHandler.insertLogEvent("User registration success for username : " + username + ".");
             }
             boolean directoryCreationStatus = createDirectory(encryptedUsername);
         }
