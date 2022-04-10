@@ -1,5 +1,5 @@
-import Constants.QueryConstants;
-import Logging.EventLogWriter;
+import Constants.Constant;
+import Logging.LogEventHandler;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -32,9 +32,9 @@ public class Login {
 
                 if(savedUsername.equals(encryptedUsername) && savedPassword.equals(encryptedPassword)
                 && savedAnswer.equals(answer)){
-                    QueryConstants.CURRENT_USER = username;
+                    Constant.CURRENT_USER = username;
                     loginStatus=true;
-                    EventLogWriter.addEventLog("User Login Successfully");
+                    LogEventHandler.insertLogEvent("User Login Successfully");
                     break;
                 }
             }
@@ -43,7 +43,7 @@ public class Login {
         return loginStatus;
     }
 
-    public String encrypt(String field) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public static String encrypt(String field) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         String encryptedMessage="";
 
         MessageDigest digest = MessageDigest.getInstance("SHA-1");

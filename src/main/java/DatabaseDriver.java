@@ -1,8 +1,7 @@
-import Constants.QueryConstants;
-import CustomExceptions.DBException;
+import CustomExceptions.ExceptionDB;
 import CustomExceptions.DuplicateUser;
-import Logging.GeneralLogWriter;
-import Services.impl.QueryServiceImpl;
+import Logging.LogGeneralHandler;
+import Services.impl.QueryImplementation;
 import Helper.ReaderWriter;
 
 import java.io.File;
@@ -16,13 +15,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import static Constants.QueryConstants.*;
+import static Constants.Constant.*;
 
 public class DatabaseDriver {
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
         initialSetup();
         CURRENT_VM = "VM1"; // need to update accordingly
-        Runnable generalLoggingRunnable = GeneralLogWriter::addMetadata;
+        Runnable generalLoggingRunnable = LogGeneralHandler::addMetadata;
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(generalLoggingRunnable, 0, 60, TimeUnit.SECONDS);
         String username;
@@ -103,21 +102,21 @@ public class DatabaseDriver {
         }
     }
 
-    public static void menu() throws IOException, DBException {
+    public static void menu() throws IOException, ExceptionDB {
         int userInput = 0;
         do {
-            ReaderWriter.print("MENU");
-            ReaderWriter.print("1.Write Queries");
-            ReaderWriter.print("2.Export Dump");
-            ReaderWriter.print("3.Data Modeling");
-            ReaderWriter.print("4.Analytics");
-            ReaderWriter.print("5.Exit");
+            ReaderWriter.printMesages("MENU");
+            ReaderWriter.printMesages("1.Write Queries");
+            ReaderWriter.printMesages("2.Export Dump");
+            ReaderWriter.printMesages("3.Data Modeling");
+            ReaderWriter.printMesages("4.Analytics");
+            ReaderWriter.printMesages("5.Exit");
             try {
-                userInput = Integer.parseInt(ReaderWriter.input());
+                userInput = Integer.parseInt(ReaderWriter.takeInput());
                 switch (userInput) {
                     case 1:
-                        ReaderWriter.print("Enter Query");
-                        new QueryServiceImpl().read();
+                        ReaderWriter.printMesages("Enter Query");
+                        new QueryImplementation().readData();
                         break;
                     case 2:
 
@@ -137,27 +136,27 @@ public class DatabaseDriver {
     }
 
     public static boolean initialSetup() throws IOException {
-        File mainDir = new File(DB_PATH_PERMANENT);
+        File mainDir = new File(DB_LOCATION_STABLE);
         if (!mainDir.isDirectory()){
             mainDir.mkdir();
         }
         //Create Meta folder if not exist
-        File metaDir = new File(DB_PATH_PERMANENT + META_DATA_DIRECTORY);
+        File metaDir = new File(DB_LOCATION_STABLE + META_DATA_DIRECTORY);
         if (!metaDir.isDirectory()) {
             metaDir.mkdir();
         }
 
-        //Create Column details if not exist
-        File columnDetailsTable = new File(metaDir.getAbsolutePath() + SLASH + COLUMN_META);
+        //Create Columns details if not exist
+        File columnDetailsTable = new File(metaDir.getAbsolutePath() + SLASH + COLMETA);
         if (!columnDetailsTable.isFile()) {
             columnDetailsTable.createNewFile();
             FileWriter fileWriter = new FileWriter(columnDetailsTable);
-            fileWriter.write("TableName" + DELIMITER + "ColumnName" + DELIMITER + "Datatype" + DELIMITER + "Constraints" + ENDOFLINE);
+            fileWriter.write("TableName" + DELIMITER + "ColumnName" + DELIMITER + "ValueTypes" + DELIMITER + "Constraints" + ENDOFLINE);
             fileWriter.close();
         }
 
         //Create Table details if not exist
-        File tableDetailsTable = new File(metaDir.getAbsolutePath() + SLASH + TABLE_META);
+        File tableDetailsTable = new File(metaDir.getAbsolutePath() + SLASH + TABMETA);
         if (!tableDetailsTable.isFile()) {
             tableDetailsTable.createNewFile();
             FileWriter fileWriter = new FileWriter(tableDetailsTable);

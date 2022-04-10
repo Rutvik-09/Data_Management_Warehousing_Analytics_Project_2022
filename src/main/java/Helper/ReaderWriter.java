@@ -6,16 +6,19 @@ import java.io.InputStreamReader;
 
 public class ReaderWriter {
 
-    private ReaderWriter() { }
+    public static String takeInput() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        return reader.readLine();
+    }
 
-    public static void print(String message) {
+    public static void printMesages(String message) {
         System.out.println(message);
     }
 
-    public static String input() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String input = reader.readLine();
-        return input;
-    }
+    private ReaderWriter() { }
+
+
+
+
 
 }
