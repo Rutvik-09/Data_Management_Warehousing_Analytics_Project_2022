@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class QueryLogWriter {
 
@@ -32,7 +34,9 @@ public class QueryLogWriter {
     private static void addLog(String query_status, String query_string, File file) {
 
         try (FileWriter writer = new FileWriter(file, true)) {
-            String timestamp = new Timestamp(System.currentTimeMillis()).toString();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            String timestamp = dtf.format(now);
             String userName = loggedInUser;
             String query = query_string;
             String status = query_status;
