@@ -18,7 +18,7 @@ public class Analytics {
         ArrayList<Integer> tablenamecount = new ArrayList<>();
         while(reader.hasNext()){
 
-            String[] splited = reader.nextLine().toLowerCase().split(",");
+            String[] splited = reader.nextLine().toLowerCase().split("\\|");
             if(splited[1].contains("update")){
 
             String[] updatequery = splited[1].split(":");
@@ -73,10 +73,12 @@ public class Analytics {
 
         while(reader.hasNext()) {
 
-            //  System.out.println(reader.nextLine());
-            String[] splited = reader.nextLine().toLowerCase().split(",");
-            //  System.out.println(splited[4]);
+            // System.out.println(reader.nextLine());
+            String[] splited = reader.nextLine().toLowerCase().split("\\|");
+
+             // System.out.println(splited[3]);
             String[] splitusername = splited[3].split(":");
+             // System.out.println(splitusername[1].replaceAll("\"", ""));
             if (splitusername[1].replaceAll("\"", "").equals(username.toLowerCase())){
               //  System.out.println(splitusername[1].replaceAll("\"", ""));
             String[] splitedb = splited[4].split(":");
@@ -129,7 +131,7 @@ public static void analytics(String username) throws IOException, NoSuchAlgorith
         updateanalytics(username);
     }
     else if(query.equals("exit")){
-     //   Mainmenu.mainmenu(username);
+     //  Mainmenu.mainmenu(username);
     }
     else {
         System.out.println("please enter query again");
@@ -139,4 +141,10 @@ public static void analytics(String username) throws IOException, NoSuchAlgorith
 }
 
 
+
+//    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
+//       updateanalytics("Jayashree1");
+//
+//      queryanalytics("Jayashree1");
+//    }
 }

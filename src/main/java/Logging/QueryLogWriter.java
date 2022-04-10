@@ -42,7 +42,7 @@ public class QueryLogWriter {
             String status = query_status;
             String dbName = QueryConstants.CURRENT_DB;
             String vm = QueryConstants.CURRENT_VM;
-            String jsonRecord = "{\"Status\":\"" + status + "\",\"Query\":\"" + query + "\",\"TimeStamp\":\"" + timestamp + "\",\"UserName\":\"" + userName + "\",\"DBName\":\"" + dbName + "\",\"VM\":\"" + vm + "\"}";
+            String jsonRecord = "{\"Status\":\"" + status + "\"|\"Query\":\"" + query + "\"|\"TimeStamp\":\"" + timestamp + "\"|\"UserName\":\"" + userName + "\"|\"DBName\":\"" + dbName + "\"|\"VM\":\"" + vm + "\"}";
             writer.append(jsonRecord);
             writer.append("\n");
         } catch (final IOException e) {
